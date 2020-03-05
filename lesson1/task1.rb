@@ -1,6 +1,6 @@
 # Ideal Weight
 
-print 'Enter your name:  '
+print 'Enter your name: '
 name = gets.chomp
 name.capitalize!
 print 'Enter your height: '

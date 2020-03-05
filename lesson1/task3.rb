@@ -1,6 +1,6 @@
 # Right triangle
 
-print 'Enter the 1st side of the triangle:  '
+print 'Enter the 1st side of the triangle: '
 side_a = gets.chomp.to_f
 print 'Enter the 2nd side of the triangle: '
 side_b = gets.chomp.to_f

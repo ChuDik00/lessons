@@ -1,6 +1,6 @@
 # Triangle area
 
-print 'Enter the base of the triangle:  '
+print 'Enter the base of the triangle: '
 base = gets.chomp.to_f
 print 'Enter the height of the triangle: '
 height = gets.chomp.to_f

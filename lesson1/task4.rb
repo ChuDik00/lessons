@@ -1,6 +1,6 @@
 # Quadratic equation
 
-print 'Enter the 1st coefficient of the algebraic equation (a):  '
+print 'Enter the 1st coefficient of the algebraic equation (a): '
 a = gets.chomp.to_f
 print 'Enter the 2nd coefficient of the algebraic equation (b): '
 b = gets.chomp.to_f
