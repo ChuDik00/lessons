@@ -1,13 +1,13 @@
-# Программа "Идеальный вес"
+# Ideal Weight
 
-print "Введите своё имя: "
+print 'Enter your name: '
 name = gets.chomp
 name.capitalize!
-print "Введите свой рост в см.: "
+print 'Enter your height: '
 height = gets.chomp.to_i
 ideal_weight = (height - 110) * 1.15
-if ideal_weight < 0
-	puts "Приветствую, #{name}, ваш вес уже оптимальный"
+if ideal_weight.negative?
+  puts "Hello, #{name}, your weight is optimal!"
 else
-	puts "Приветствую, #{name}, ваш идеальный вес = #{ideal_weight} кг."
+  puts "Hello, #{name}, your optimal weight = #{ideal_weight} kg"
 end

@@ -1,19 +1,19 @@
-# Программа "Квадратное уравнение"
+# Quadratic equation
 
-print "Введите 1-й коэффициент алгебраического уравнения (a): "
+print 'Enter the 1st coefficient of the algebraic equation (a): '
 a = gets.chomp.to_f
-print "Введите 2-й коэффициент алгебраического уравнения (b): "
+print 'Enter the 2nd coefficient of the algebraic equation (b): '
 b = gets.chomp.to_f
-print "Введите 3-й коэффициент алгебраического уравнения (c): "
+print 'Enter the 3rd coefficient of the algebraic equation (c): '
 c = gets.chomp.to_f
-d = b**2-4*a*c
-if d < 0
-	puts "Дискриминант = #{d}; Корней нет!"
-elsif d > 0
-	x1 = (-b + Math.sqrt(d))/(2*a)
-	x2 = (-b - Math.sqrt(d))/(2*a)
-	puts "Дискриминант D = #{d}; Корень Х1 = #{x1}; Корень Х2 = #{x2}"
+d = b**2 - 4 * a * c
+if d.negative?
+  puts "Discriminant D = #{d}; no answer!"
+elsif d.positive?
+  x1 = (-b + Math.sqrt(d))/(2 * a)
+  x2 = (-b - Math.sqrt(d))/(2 * a)
+  puts "Discriminant D = #{d}; answer Х1 = #{x1}; answer Х2 = #{x2}"
 else
-	x = -b/(2*a)
-	puts "Дискриминант D = #{d}; Один корень Х = #{x}"
+  x = -b/(2 * a)
+  puts "Discriminant D = #{d}; answer Х = #{x}"
 end

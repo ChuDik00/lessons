@@ -1,9 +1,9 @@
-# Программа "Площадь треугольника"
+# Triangle area
 
-print "Введите основание треугольника: "
+print 'Enter the base of the triangle: '
 base = gets.chomp.to_f
-print "Введите высоту треугольника: "
+print 'Enter the height of the triangle: '
 height = gets.chomp.to_f
-square =  1.to_f / 2 * base * height
+square = 0.5 * base * height
 
-puts " Площадь треугольника = #{square}"
+puts "The area of the triangle = #{square}"
