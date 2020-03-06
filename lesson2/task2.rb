@@ -1,6 +1,6 @@
 # Fill the array with numbers from 10 to 100 in increments of 5
 
-#Одно из решение по урокам с циклами
+#Одно из решений по урокам с циклами
 array =[]
 i = 10
 while i <= 100 do
