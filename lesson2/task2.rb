@@ -1,4 +1,4 @@
-# Fill the array with numbers from 10 to 100 in increments of 5
+# Заполнить массив числами от 10 до 100 с шагом 5.
 
 #Одно из решений по урокам с циклами
 array =[]
