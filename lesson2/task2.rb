@@ -7,8 +7,8 @@ while i <= 100
   array << i
   i += 5
 end
-p array
+puts array
 
 #Более компактное решение
 array1 = (10..100).step(5).to_a
-p array1
+puts array1

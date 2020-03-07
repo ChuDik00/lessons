@@ -6,6 +6,6 @@ wovels = "аеёиоуыэюя".each_char.to_a
 hash = {}
 wovels.each do |letter|
   index = alphabet.index letter
-  hash[letter] = index+1
+  hash[letter] = index + 1
 end
-p hash
+puts hash

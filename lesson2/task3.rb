@@ -8,5 +8,5 @@ loop do
   array.push(new_fib)
   i += 1
 end
-p array
+puts array
 
