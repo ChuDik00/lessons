@@ -1,5 +1,5 @@
 class Train
-  attr_reader :wagons, :current_speed, :type
+  attr_reader :number, :type, :wagons, :route
 
   def initialize(number, type, wagons)
     @number = number
@@ -13,7 +13,7 @@ class Train
   end
 
   def decrease_speed(speed)
-    if speed > @current_speed
+    if @current_speed < speed
       @current_speed = 0
     else
       @current_speed -= speed
@@ -25,25 +25,25 @@ class Train
   end
 
   def remove_wagon
-    @wagons -= 1 if @current_speed == 0 && @wagon.positive?
-  end
-
-  def add_route(route)
-    @current_route = route
-    @currunt_station = route.stations[0]
+    @wagons -= 1 if @current_speed == 0 && @wagons.positive?
   end
 
   def move_forward
-    @currunt_station += 1 if @current_speed.positive?
+    @current_station += 1 if @current_speed.positive? && @current_station < @route.stations.size-1
   end
 
   def move_backward
-    @currunt_station -= 1 if @current_speed.positive?
+    @current_station -= 1 if @current_speed.positive? && @current_station.positive?
   end
 
-  def display_stations
-    puts "Текущая станция: #{@current_route.stations[@currunt_station]}"
-    puts "Предыдущая станция: #{@current_route.stations[@currunt_station-1]}"
-    puts "Следующая станция: #{@current_route.stations[@currunt_station+1]}"
+  def route=(route)
+    @current_station = 0
+    @route = route
+  end
+
+  def display
+    puts "Текущая станция: #{@route.stations[@current_station]}"
+    puts "Предыдущая станция: #{@route.stations[@current_station-1]}" if @current_station.positive?
+    puts "Следующая станция: #{@route.stations[@current_station+1]}" if @current_station < @route.stations.size-1
   end
 end

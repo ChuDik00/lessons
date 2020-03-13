@@ -1,25 +1,26 @@
 class Station
-  attr_writer :station
-  attr_reader :list_of_trains
 
   def initialize(title)
     @title = title
-    @list_of_trains = []
+    @trains_list = []
   end
 
   def incoming_train(train)
-    @list_of_trains << train
+    @trains_list << train
   end
 
   def outgoing_train(train)
-    @list_of_trains.delete(train)
+    @trains_list.delete(train)
   end
 
-  def list_of_trains_type
+  def trains_type
     types = Hash.new(0)
-    @list_of_trains.each { |train| types[train.type] += 1 }
+    @trains_list.each { |train| types[train.type] += 1 }
     types = types.sort
     types.each { |type, count| puts "Поездов типа #{type}: #{count} ед."}
   end
 
+  def trains_list
+    @trains_list.each { |train| puts "Поезд №#{train.number}, тип: #{train.type}, к-во вагонов: #{train.wagons}"}
+  end
 end
