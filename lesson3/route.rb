@@ -1,4 +1,5 @@
 class Route
+  attr_reader :stations
 
   def initialize(start, finish)
     @start = start
@@ -10,13 +11,11 @@ class Route
     @stations.insert(@stations.index(@stations.last), station)
   end
 
-  def del_station(station)
+  def delete_station(station)
     @stations.delete(station)
   end
 
-  def stations
-    puts @stations.join(', ')
-    @stations
+  def to_s
+    @stations.map { |station| station.title }
   end
-
 end

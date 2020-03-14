@@ -1,4 +1,5 @@
 class Station
+  attr_reader :trains_list, :title
 
   def initialize(title)
     @title = title
@@ -14,13 +15,16 @@ class Station
   end
 
   def trains_type
-    types = Hash.new(0)
-    @trains_list.each { |train| types[train.type] += 1 }
-    types = types.sort
-    types.each { |type, count| puts "Поездов типа #{type}: #{count} ед."}
+    @trains_type = {}
+    @trains_list.each do |train|
+      @trains_type[train.type] = []
+    end
+    @trains_type.each do |type, array|
+      @trains_type[type] = @trains_list.select { |i| i.type == type}
+    end
   end
 
-  def trains_list
+  def to_s
     @trains_list.each { |train| puts "Поезд №#{train.number}, тип: #{train.type}, к-во вагонов: #{train.wagons}"}
   end
 end
