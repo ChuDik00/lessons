@@ -1,6 +1,6 @@
 class Train
-  attr_reader :number, :type, :wagons
-  attr_reader :route
+  attr_reader :number, :type, :wagons, :route
+
 
   def initialize(number, type, wagons)
     @number = number
@@ -22,11 +22,11 @@ class Train
   end
 
   def add_wagon
-    @wagons += 1 if @current_speed == 0
+    @wagons += 1 if @current_speed.zero?
   end
 
   def remove_wagon
-    @wagons -= 1 if @current_speed == 0 && @wagons.positive?
+    @wagons -= 1 if @current_speed.zero? && @wagons.positive?
   end
 
   def route=(route)
@@ -39,9 +39,9 @@ class Train
 
   def current_station
     @route.stations.each do |station|
-         if station.trains_list.include?(self)
-           @current_station = station
-         end
+      if station.trains_list.include?(self)
+        @current_station = station
+      end
     end
   end
 
