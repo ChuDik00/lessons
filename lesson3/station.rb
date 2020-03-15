@@ -15,15 +15,15 @@ class Station
   end
 
   def trains_type
-    @trains_type = {}
-    @trains_list.each { |train| @trains_type[train.type] = [] }
-    @trains_type.each do |type, array|
-      @trains_type[type] = @trains_list.select { |train| train.type == type }
+    trains_type = {}
+    @trains_list.each { |train| trains_type[train.type] = [] }
+    trains_type.each do |type, array|
+      trains_type[type] = @trains_list.select { |train| train.type == type }
     end
   end
 
   def to_s
     @trains_list.each { |train| puts "Поезд №#{train.number}, тип: #{train.type}, к-во вагонов: #{train.wagons}"}
-    @trains_type.each { |type, array| puts "Поездов типа: #{type}: #{array.length} ед."}
+    trains_type.each { |type, array| puts "Поездов типа: #{type}: #{array.size} ед."}
   end
 end
