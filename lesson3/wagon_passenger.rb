@@ -1,6 +1,3 @@
-class WagonPassenger < Wagon
+class WagonPassenger
 
-  def initialize(type = 'passenger')
-    super
-  end
 end
