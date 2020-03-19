@@ -1,11 +1,25 @@
-# require_relative 'station'
-# require_relative 'route'
+require_relative 'station'
+require_relative 'route'
 require_relative 'train'
 require_relative 'train_cargo'
 require_relative 'train_passenger'
 # require_relative 'wagon'
 require_relative 'wagon_cargo'
 require_relative 'wagon_passenger'
+
+print 'Выберите один из предложенных вариантов: '
+puts (
+       1. Добавление станции
+       2. Добавление поезда
+       3. Создание маршрута
+       4. Назначение маршрута поезду
+       5. Добавить вагон к поезду
+       6. Отцепить вагон от поезда
+       7. Переместить поезд вперед
+       8. Переместить поезд назад
+       9. Просмотреть список станций
+       10. Просмотреть список поездов на станции
+    )
 
 wgc1 = WagonCargo.new
 puts wgc1
