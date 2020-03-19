@@ -34,15 +34,34 @@ loop do
     station_name = gets.chomp.to_s
     Station.new(station_name)
     puts   "Добавлена станция #{station_name}"
-  end
   when 2 #Добавление поезда
+    print 'Введите номер поезда: '
+    train_number = gets.chomp.to_s
+    p Train.all_trains.map{ |train| train.number == train_number }
+    if Train.all_trains.map{ |train| train.number == train_number }.include?train_number2
+      puts 'Такой номер поезда уже есть.'
+    else
+      print 'Какой поезд? 1-пассажирский/2-грузовой: '
+      train_type = gets.chomp.to_i
+      case train_type
+      when 1
+        TrainPassenger.new(train_number)
+      when 2
+        TrainCargo.new(train_number)
+      else
+        puts 'Введите 1 или 2'
+      end
+    end
 
 
+    # p m
+  end
 end
 wgc1 = WagonCargo.new
 puts wgc1
 wgp1 = WagonPassenger.new
 puts wgp1
+
 
 tc1 = TrainCargo.new(01)
 tp1 = TrainPassenger.new(02)
@@ -51,6 +70,7 @@ tc1.add_wagon(wgc1)
 p tc1
 tp1.add_wagon(wgc1)
 p tp1
+p Train.all_trains
 
 
 # tc1.increase_speed(10)

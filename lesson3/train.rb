@@ -1,4 +1,5 @@
 class Train
+  @@all_trains = []
   attr_reader :number, :type, :route, :wagons
   attr_accessor :current_speed
 
@@ -7,6 +8,11 @@ class Train
     @type = type
     @current_speed = 0
     @wagons = []
+    @@all_trains << self
+  end
+
+  def self.all_trains
+    @@all_trains
   end
 
   def increase_speed(speed)
