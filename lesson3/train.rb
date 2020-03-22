@@ -11,7 +11,7 @@ class Train
     @@all_trains << self
   end
 
-  def self.all_trains
+  def self.all
     @@all_trains
   end
 
@@ -53,6 +53,14 @@ class Train
     puts "Следующая станция: #{next_station.title}" if !next_station.nil?
   end
 
+  def add_wagon(wagon)
+    @wagons << wagon
+  end
+
+  def remove_wagon(wagon)
+    @wagons.delete(wagon)
+  end
+
   protected
   #Должны видеть только дочерние TrainCargo и TrainPassenger
   def current_station
@@ -71,13 +79,5 @@ class Train
   def prev_station
     current_station
     @route.stations[@route.stations.index(@current_station)-1] if (@route.stations.index(@current_station)).positive?
-  end
-
-  def add_wagon(wagon)
-    @wagons << wagon
-  end
-
-  def remove_wagon(wagon)
-    @wagons.delete(wagon)
   end
 end
