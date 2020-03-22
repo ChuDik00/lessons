@@ -54,15 +54,23 @@ class Train
   end
 
   def add_wagon(wagon)
-    @wagons << wagon
+    if @wagons.detect{ |w| w == wagon}.nil?
+      @wagons << wagon
+      puts "Вагон №#{wagon.number} прицеплен к поезду"
+    else
+      puts 'Этот вагон к поезду уже прицеплен!'
+    end
   end
 
   def remove_wagon(wagon)
-    @wagons.delete(wagon)
+    if @wagons.detect{ |w| w == wagon}.nil?
+      puts 'Этот вагон к поезду не прицеплен!'
+    else
+      @wagons.delete(wagon)
+      puts "Вагон №#{wagon.number} отцеплен от поезда"
+    end
   end
 
-  protected
-  #Должны видеть только дочерние TrainCargo и TrainPassenger
   def current_station
     @route.stations.each do |station|
       if station.trains_list.include?(self)

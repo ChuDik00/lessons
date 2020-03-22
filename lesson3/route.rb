@@ -12,7 +12,11 @@ class Route
   end
 
   def delete_station(station)
-    @stations.delete(station)
+    if @stations.include?(station)
+      @stations.delete(station)
+    else
+      print 'Такой станции в маршруте нет!'
+    end
   end
 
   def to_s
