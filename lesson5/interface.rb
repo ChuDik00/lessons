@@ -13,6 +13,19 @@ class Interface
     @choice = gets.chomp
   end
 
+  def find_train(number)
+    Train.all.detect { |train| train.number == number }
+  end
+
+  def find_station(title)
+    Station.all.detect { |station| station.title == title }
+  end
+
+  def find_wagon(number)
+    Wagon.all.detect { |wagon| wagon.number == number }
+  end
+
+
   def main_menu
     puts 'Введите 1 для добавления станции, поезда, вагона или маршрута.'
     puts 'Введите 2 для проведения операций с созданными объектами.'
@@ -26,6 +39,7 @@ class Interface
     when 3
       output_menu
     when 0
+      exit
     else
       puts 'Неправильный выбор!'
       main_menu
@@ -41,20 +55,121 @@ class Interface
     puts 'Введите 0 для завершения работы.'
     case choice.to_i
     when 1
-      # добавление станции
+      add_station
     when 2
-      # добавление поезда
+      add_train_menu
     when 3
-      # добавление вагона
+      add_wagon_menu
     when 4
-      # добавление маршрута
+      add_route
     when 5
       main_menu
     when 0
+      exit
     else
       puts 'Неправильный выбор!'
-      adding_objects_menu
     end
+    puts 'Выберите, что делать дальше:'
+    objects_menu
+  end
+
+  def add_station
+    print 'Введите название станции: '
+    choice
+    Station.new(@choice)
+    puts "Добавлена станция с названием: #{@choice}"
+  end
+
+  def add_train_menu
+    puts 'Введите 1 для добавления пассажирского поезда.'
+    puts 'Введите 2 для добавления грузового поезда.'
+    puts 'Введите 3 для возврата в предыдущее меню.'
+    puts 'Введите 4 для возврата в главное.'
+    puts 'Введите 0 для завершения работы.'
+    case choice.to_i
+    when 1
+      add_passenger_train
+    when 2
+      add_cargo_train
+    when 3
+      objects_menu
+    when 4
+      main_menu
+    when 0
+      exit
+    end
+    puts 'Выберите, что делать дальше:'
+    add_train_menu
+  end
+
+  def add_passenger_train
+    print 'Введите номер поезда: '
+    choice
+    if !find_train(@choice).nil?
+      puts 'Такой номер поезда уже есть!'
+    else
+      TrainPassenger.new(@choice)
+      puts "Добавлен пассажирский поезд с номером: #{@choice}"
+    end
+  end
+
+  def add_cargo_train
+    print 'Введите номер поезда: '
+    choice
+    if !find_train(@choice).nil?
+      puts 'Такой номер поезда уже есть!'
+    else
+      TrainCargo.new(@choice)
+      puts "Добавлен грузовой поезд с номером: #{@choice}"
+    end
+  end
+
+  def add_wagon_menu
+    puts 'Введите 1 для добавления пассажирского вагона.'
+    puts 'Введите 2 для добавления грузового вагона.'
+    puts 'Введите 3 для возврата в предыдущее меню.'
+    puts 'Введите 4 для возврата в главное.'
+    puts 'Введите 0 для завершения работы.'
+    case choice.to_i
+    when 1
+      add_passenger_wagon
+    when 2
+      add_cargo_wagon
+    when 3
+      objects_menu
+    when 4
+      main_menu
+    when 0
+      exit
+    end
+    puts 'Выберите, что делать дальше:'
+    add_wagon_menu
+  end
+
+  def add_passenger_wagon
+    print 'Введите номер вагона: '
+    choice
+    if !find_wagon(@choice).nil?
+      puts 'Такой номер вагона уже есть!'
+    else
+      WagonPassenger.new(@choice)
+      puts "Добавлен пассажирский вагон с номером: #{@choice}"
+    end
+  end
+
+  def add_cargo_wagon
+    print 'Введите номер вагона: '
+    choice
+    if !find_wagon(@choice).nil?
+      puts 'Такой номер вагона уже есть!'
+    else
+      WagonCargo.new(@choice)
+      puts "Добавлен грузовой вагон с номером: #{@choice}"
+    end
+  end
+
+  def add_route
+
   end
 
   def operating_menu
@@ -88,10 +203,13 @@ class Interface
     when 9
       main_menu
     when 0
+      exit
     else
       puts 'Неправильный выбор!'
-      operating_menu
     end
+    puts 'Выберите, что делать дальше:'
+    operating_menu
+
   end
 
   def output_menu
@@ -107,10 +225,12 @@ class Interface
     when 3
       main_menu
     when 0
+      exit
     else
       puts 'Неправильный выбор!'
-      output_menu
     end
+    puts 'Выберите, что делать дальше:'
+    output_menu
   end
 end
 
