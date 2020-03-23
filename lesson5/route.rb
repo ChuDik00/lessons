@@ -1,10 +1,16 @@
 class Route
+  @@all_routes = []
   attr_reader :stations
 
   def initialize(start, finish)
     @start = start
     @finish = finish
     @stations = [start, finish]
+    @@all_routes << self
+  end
+
+  def self.all
+    @@all_routes
   end
 
   def add_station(station)

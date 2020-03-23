@@ -169,7 +169,32 @@ class Interface
   end
 
   def add_route
-
+    if Station.all.size < 2
+      puts 'Для создания маршрута нужны минимум 2 станции.'
+      add_station
+    else
+      loop do
+        print 'Введите название первой станции маршрута: '
+        choice
+        if find_station(@choice).nil?
+          puts 'Такой станции нет в списке станций!'
+          break
+        else
+          first = find_station(@choice)
+        end
+        print 'Введите название последней станции маршрута: '
+        choice
+        if find_station(@choice).nil?
+          puts 'Такой станции нет в списке станций!'
+          break
+        else
+          last = find_station(@choice)
+        end
+        route = Route.new(first, last)
+        puts "Добавлен маршрут #{route.stations.first.title}-#{route.stations.last.title}"
+        break
+      end
+    end
   end
 
   def operating_menu
@@ -209,7 +234,6 @@ class Interface
     end
     puts 'Выберите, что делать дальше:'
     operating_menu
-
   end
 
   def output_menu

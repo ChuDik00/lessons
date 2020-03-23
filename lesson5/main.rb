@@ -273,7 +273,7 @@ loop do
         puts "Список станций: #{Station.all.map{ |station| station.title }.join(", ")}"
       when 2
         loop do
-          print 'Введите название станции: '
+          print 'Введите add_stationназвание станции: '
           station_title = gets.chomp
           if find_station(station_title).nil?
             puts 'Такой станции нет в природе!'
