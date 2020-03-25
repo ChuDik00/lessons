@@ -179,25 +179,34 @@ class Interface
       add_station
     else
       loop do
-        print 'Введите название первой станции маршрута: '
+        print'Введите № поезда: '
         choice
-        if find_station(@choice).nil?
-          puts 'Такой станции нет в списке станций!'
-          break
+        train = find_train(@choice)
+        if train.nil?
+          puts 'Такого поезда нет!'
         else
-          first = find_station(@choice)
-        end
-        print 'Введите название последней станции маршрута: '
-        choice
-        if find_station(@choice).nil?
-          puts 'Такой станции нет в списке станций!'
+          print 'Введите название первой станции маршрута: '
+          choice
+          if find_station(@choice).nil?
+            puts 'Такой станции нет в списке станций!'
+            break
+          else
+            first = find_station(@choice)
+          end
+          print 'Введите название последней станции маршрута: '
+          choice
+          if find_station(@choice).nil?
+            puts 'Такой станции нет в списке станций!'
+            break
+          else
+            last = find_station(@choice)
+          end
+          route = Route.new(first, last)
+          train.route=route
+          puts "Добавлен маршрут #{route.stations.first.title}-#{route.stations.last.title}"
+          puts "Маршрут #{route.stations.first.title}-#{route.stations.last.title} назначен поезду №#{train.number}"
           break
-        else
-          last = find_station(@choice)
         end
-        route = Route.new(first, last)
-        puts "Добавлен маршрут #{route.stations.first.title}-#{route.stations.last.title}"
-        break
       end
     end
   end
@@ -361,9 +370,93 @@ class Interface
       print 'Введите, на сколько нужно увеличить скорость: '
       choice
       train.increase_speed(@choice.to_i)
-      puts "Скорость увеличена на #{speed} км/ч"
+      puts "Скорость поезда №#{train.number} увеличена на #{@choice} км/ч"
+    end
   end
 
+  def decrease_speed
+    print 'Введите номер поезда: '
+    choice
+    train = find_train(@choice)
+    if train.nil?
+      puts 'Такого номера поезда нет!'
+    else
+      print 'Введите, на сколько нужно уменьшить скорость: '
+      choice
+      train. decrease_speed(@choice.to_i)
+      puts "Скорость поезда №#{train.number} уменьшена на #{@choice} км/ч"
+    end
+  end
+
+  def move_forward
+    print 'Введите номер поезда: '
+    choice
+    train = find_train(@choice)
+    if train.nil?
+      puts 'Такого номера поезда нет!'
+    else
+      train.move_forward
+      train.current_station
+      puts "Поезд №#{train.number} переместился на станцию #{@current_station.title}"
+    end
+  end
+
+  def move_backward
+    print 'Введите номер поезда: '
+    choice
+    train = find_train(@choice)
+    if train.nil?
+      puts 'Такого номера поезда нет!'
+    else
+      train.move_backward
+      train.current_station
+      puts "Поезд №#{train.number} переместился на станцию #{@current_station.title}"
+    end
+  end
+
+  def insert_station_in_route
+    print 'Введите номер поезда: '
+    choice
+    train = find_train(@choice)
+    if train.nil?
+      puts 'Такого номера поезда нет!'
+    elsif train.route.nil?
+      puts "Поезду №#{train.number} маршрут не назначен."
+    else
+      print 'Введите название станции для добавления к маршруту: '
+      choice
+      station = find_station(@choice)
+      if station.nil?
+        puts 'Такой станции нет!'
+      else
+        train.route.add_station(station)
+        puts "Станция #{station.title}  добавлена к маршруту поезда №#{train.number}"
+      end
+    end
+  end
+
+  def  delete_station_from_route
+    print 'Введите номер поезда: '
+    choice
+    train = find_train(@choice)
+    if train.nil?
+      puts 'Такого номера поезда нет!'
+    elsif train.route.nil?
+      puts "Поезду №#{train.number} маршрут не назначен."
+    else
+      print 'Введите название станции для удаления из маршрута: '
+      choice
+      station = find_station(@choice)
+      if station.nil?
+        puts 'Такой станции нет!'
+      elsif !train.route.stations.include?(station)
+        puts "Станция #{station.title} не присутствует в маршруте поезда №#{train.number}"
+      else
+        train.route.delete_station(station)
+        puts "Станция #{station.title} удалена из маршрута поезда №#{train.number}"
+      end
+    end
+  end
 
   def output_menu
     puts 'Введите 1 для вывода списка станций.'
