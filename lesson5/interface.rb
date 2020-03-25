@@ -251,17 +251,20 @@ class Interface
     when 1
       add_passenger_wagon_to_train
     when 2
-      #add_cargo_wagon_to_train
+      add_cargo_wagon_to_train
     when 3
       operating_menu
     when 4
       main_menu
     when 0
       exit
+    else
+      puts 'Неправильный выбор!'
     end
     puts 'Выберите, что делать дальше:'
     add_wagon_to_train_menu
   end
+
 
   def add_passenger_wagon_to_train
     print 'Введите номер поезда: '
@@ -280,24 +283,86 @@ class Interface
           puts 'Такого номера вагона нет!'
         elsif wagon.type == :cargo
           puts 'Это не пассажирский вагон'
-        elsif !wagon.train.empty? && wagon.train.number == train.number
+        elsif !wagon.train.nil? && wagon.train.number == train.number
           puts "Вагон №#{wagon.number} уже прицеплен к поезду №#{train.number}"
-        elsif !wagon.train.empty?
-          puts "Вагон №#{wagon.number} прицеплен к поезду №#{wagon.train.number} , сначала отцепите его."
-          # remove_wagon_from_train
+        elsif !wagon.train.nil?
+          puts "Вагон №#{wagon.number} прицеплен к поезду №#{wagon.train.number}, сначала отцепите его."
+          remove_wagon_from_train
         else
           train.add_wagon(wagon)
-          wagon.train = train
+          wagon.train = train if train.wagons.include?(wagon)
+          puts "Вагон №#{wagon.number} прицеплен к поезду №#{train.number}"
         end
       end
     end
   end
 
-  def remove_passenger_wagon_from_train
-    if !@wagons.detect{ |w| w == wagon}.nil?
+  def add_cargo_wagon_to_train
+    print 'Введите номер поезда: '
+    choice
+    train = find_train(@choice)
+    if train.nil?
+      puts 'Такого номера поезда нет!'
+    else
+      if train.type == :passenger
+        puts 'Грузовой вагон можно цеплять только к грузовому поезду!'
+      else
+        print 'Введите номер вагона: '
+        choice
+        wagon = find_wagon(@choice)
+        if wagon.nil?
+          puts 'Такого номера вагона нет!'
+        elsif wagon.type == :passenger
+          puts 'Это не грузовой вагон'
+        elsif !wagon.train.nil? && wagon.train.number == train.number
+          puts "Вагон №#{wagon.number} уже прицеплен к поезду №#{train.number}"
+        elsif !wagon.train.nil?
+          puts "Вагон №#{wagon.number} прицеплен к поезду №#{wagon.train.number}, сначала отцепите его."
+          remove_wagon_from_train
+        else
+          train.add_wagon(wagon)
+          wagon.train = train if train.wagons.include?(wagon)
+          puts "Вагон №#{wagon.number} прицеплен к поезду №#{train.number}"
+        end
+      end
     end
   end
 
+  def remove_wagon_from_train
+    print 'Введите номер поезда: '
+    choice
+    train = find_train(@choice)
+    if train.nil?
+      puts 'Такого номера поезда нет!'
+    else
+      print 'Введите номер вагона: '
+      choice
+      wagon = find_wagon(@choice)
+      if wagon.nil?
+        puts 'Такого номера вагона не существует!'
+      elsif wagon.train != train
+        puts "Вагон номер №#{wagon.number} не прицеплен к поезду №#{train.number}."
+      else"
+        train.remove_wagon(wagon)
+        wagon.train = nil if !train.wagons.include?(wagon)
+        puts "Вагон номер №#{wagon.number} отцеплен от поезда №#{train.number}."
+      end
+    end
+
+  end
+
+  def increase_speed
+    print 'Введите номер поезда: '
+    choice
+    train = find_train(@choice)
+    if train.nil?
+      puts 'Такого номера поезда нет!'
+    else
+      print 'Введите, на сколько нужно увеличить скорость: '
+      choice
+      train.increase_speed(@choice.to_i)
+      puts "Скорость увеличена на #{speed} км/ч"
+  end
 
 
   def output_menu
