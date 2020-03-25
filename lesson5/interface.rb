@@ -102,6 +102,8 @@ class Interface
       main_menu
     when 0
       exit
+    else
+      puts 'puts Неправильный выбор!'
     end
     puts 'Выберите, что делать дальше:'
     add_train_menu
@@ -146,6 +148,8 @@ class Interface
       main_menu
     when 0
       exit
+    else
+      puts 'Неправильный выбор!'
     end
     puts 'Выберите, что делать дальше:'
     add_wagon_menu
@@ -238,7 +242,7 @@ class Interface
     when 7
       insert_station_in_route
     when 8
-      remove_station_from_route
+      delete_station_from_route
     when 9
       main_menu
     when 0
@@ -273,7 +277,6 @@ class Interface
     puts 'Выберите, что делать дальше:'
     add_wagon_to_train_menu
   end
-
 
   def add_passenger_wagon_to_train
     print 'Введите номер поезда: '
@@ -353,7 +356,7 @@ class Interface
         puts "Вагон номер №#{wagon.number} не прицеплен к поезду №#{train.number}."
       else
         train.remove_wagon(wagon)
-        wagon.train = nil if !train.wagons.include?(wagon)
+        wagon.train = nil unless train.wagons.include?(wagon)
         puts "Вагон номер №#{wagon.number} отцеплен от поезда №#{train.number}."
       end
     end
