@@ -465,9 +465,9 @@ class Interface
     puts 'Введите 0 для завершения работы.'
     case choice.to_i
     when 1
-      # вывод списка станций
+      report_list_of_stations
     when 2
-      # вывод списка поездов на станции
+      report_list_of_trains_on_station
     when 3
       main_menu
     when 0
@@ -477,6 +477,22 @@ class Interface
     end
     puts 'Выберите, что делать дальше:'
     output_menu
+  end
+
+  def report_list_of_stations
+    puts "Список станций: #{Station.all.map{ |station| station.title }.join(", ")}"
+  end
+
+  def report_list_of_trains_on_station
+    report_list_of_stations
+    print 'Введите название станции: '
+    choice
+    station = find_station(@choice)
+    if station.nil?
+      puts 'Такой станции нет в природе!'
+    else
+      station.to_s
+    end
   end
 end
 Interface.new.init
