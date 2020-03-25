@@ -26,6 +26,7 @@ class Route
   end
 
   def to_s
-    @stations.map { |station| station.title }
+    stations = @stations.map { |station| station.title }.join(", ")
+    puts "Станции на маршруте:  #{stations}"
   end
 end
