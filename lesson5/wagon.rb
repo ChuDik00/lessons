@@ -17,9 +17,4 @@ class Wagon
   def info
     puts "Тип #{@type}"
   end
-
-  # def train=(train)
-  #   train.wagons << self
-  #   @train = train
-  # end
 end

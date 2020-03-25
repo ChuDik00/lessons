@@ -79,7 +79,7 @@ class Interface
   end
 
   def add_station
-    print 'Введите название станции: '
+    print 'Введите название новой станции: '
     choice
     Station.new(@choice)
     puts "Добавлена станция с названием: #{@choice}"
@@ -396,8 +396,8 @@ class Interface
       puts 'Такого номера поезда нет!'
     else
       train.move_forward
-      train.current_station
-      puts "Поезд №#{train.number} переместился на станцию #{@current_station.title}"
+      current_station = train.current_station
+      puts "Поезд №#{train.number} переместился на станцию #{current_station.title}"
     end
   end
 
@@ -409,8 +409,8 @@ class Interface
       puts 'Такого номера поезда нет!'
     else
       train.move_backward
-      train.current_station
-      puts "Поезд №#{train.number} переместился на станцию #{@current_station.title}"
+      current_station = train.current_station
+      puts "Поезд №#{train.number} переместился на станцию #{current_station.title}"
     end
   end
 
@@ -428,6 +428,8 @@ class Interface
       station = find_station(@choice)
       if station.nil?
         puts 'Такой станции нет!'
+        add_station
+        insert_station_in_route
       else
         train.route.add_station(station)
         puts "Станция #{station.title}  добавлена к маршруту поезда №#{train.number}"
@@ -490,6 +492,8 @@ class Interface
     station = find_station(@choice)
     if station.nil?
       puts 'Такой станции нет в природе!'
+    elsif station.trains_list.nil?
+      puts "На станции #{station.title} нет поездов."
     else
       station.to_s
     end

@@ -67,6 +67,7 @@ class Train
         @current_station = station
       end
     end
+    @current_station
   end
 
   def next_station
