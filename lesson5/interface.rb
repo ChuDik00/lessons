@@ -9,6 +9,11 @@ require_relative 'wagon_passenger'
 
 class Interface
 
+  def init
+    main_menu
+  end
+
+  private
   def choice
     @choice = gets.chomp
   end
@@ -210,21 +215,21 @@ class Interface
     puts 'Введите 0 для завершения работы.'
     case choice.to_i
     when 1
-      # прицепление вагона к поезду
+      add_wagon_to_train_menu
     when 2
-      # отцепление вагона от поезда
+      remove_wagon_from_train
     when 3
-      # увеличение скорости поезда
+      increase_speed
     when 4
-      # уменьшение скорости поезда
+      decrease_speed
     when 5
-      # перемещение на следующую станцию
+      move_forward
     when 6
-      # перемещение на предыдущую станцию
+      move_backward
     when 7
-      # добавление станции к маршруту
+      insert_station_in_route
     when 8
-      # удаление станции из маршрута
+      remove_station_from_route
     when 9
       main_menu
     when 0
@@ -235,6 +240,65 @@ class Interface
     puts 'Выберите, что делать дальше:'
     operating_menu
   end
+
+  def add_wagon_to_train_menu
+    puts 'Введите 1 для прицепления пассажирского вагона.'
+    puts 'Введите 2 для прицепления грузового вагона.'
+    puts 'Введите 3 для возврата в предыдущее меню.'
+    puts 'Введите 4 для возврата в главное.'
+    puts 'Введите 0 для завершения работы.'
+    case choice.to_i
+    when 1
+      add_passenger_wagon_to_train
+    when 2
+      #add_cargo_wagon_to_train
+    when 3
+      operating_menu
+    when 4
+      main_menu
+    when 0
+      exit
+    end
+    puts 'Выберите, что делать дальше:'
+    add_wagon_to_train_menu
+  end
+
+  def add_passenger_wagon_to_train
+    print 'Введите номер поезда: '
+    choice
+    train = find_train(@choice)
+    if train.nil?
+      puts 'Такого номера поезда нет!'
+    else
+      if train.type == :cargo
+        puts 'Пассажирский вагон можно цеплять только к пассажирскому поезду!'
+      else
+        print 'Введите номер вагона: '
+        choice
+        wagon = find_wagon(@choice)
+        if wagon.nil?
+          puts 'Такого номера вагона нет!'
+        elsif wagon.type == :cargo
+          puts 'Это не пассажирский вагон'
+        elsif !wagon.train.empty? && wagon.train.number == train.number
+          puts "Вагон №#{wagon.number} уже прицеплен к поезду №#{train.number}"
+        elsif !wagon.train.empty?
+          puts "Вагон №#{wagon.number} прицеплен к поезду №#{wagon.train.number} , сначала отцепите его."
+          # remove_wagon_from_train
+        else
+          train.add_wagon(wagon)
+          wagon.train = train
+        end
+      end
+    end
+  end
+
+  def remove_passenger_wagon_from_train
+    if !@wagons.detect{ |w| w == wagon}.nil?
+    end
+  end
+
+
 
   def output_menu
     puts 'Введите 1 для вывода списка станций.'
@@ -257,6 +321,4 @@ class Interface
     output_menu
   end
 end
-
-interface = Interface.new
-interface.main_menu
+Interface.new.init

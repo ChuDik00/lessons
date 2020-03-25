@@ -54,21 +54,11 @@ class Train
   end
 
   def add_wagon(wagon)
-    if @wagons.detect{ |w| w == wagon}.nil?
       @wagons << wagon
-      puts "Вагон №#{wagon.number} прицеплен к поезду"
-    else
-      puts 'Этот вагон к поезду уже прицеплен!'
-    end
   end
 
   def remove_wagon(wagon)
-    if @wagons.detect{ |w| w == wagon}.nil?
-      puts 'Этот вагон к поезду не прицеплен!'
-    else
       @wagons.delete(wagon)
-      puts "Вагон №#{wagon.number} отцеплен от поезда"
-    end
   end
 
   def current_station

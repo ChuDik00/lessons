@@ -1,14 +1,14 @@
 class TrainCargo < Train
 
-  def initialize(number, type = 'cargo')
+  def initialize(number, type = :cargo)
     super
   end
 
   def add_wagon(wagon)
-    if wagon.instance_of?(WagonCargo)
+    if @type == wagon.type
       super(wagon)
     else
-      puts 'К грузовому можно цеплять только грузовые вагоны'
+      nil
     end
   end
 end
