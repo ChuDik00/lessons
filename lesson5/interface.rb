@@ -499,4 +499,4 @@ class Interface
     end
   end
 end
-Interface.new.init
+
