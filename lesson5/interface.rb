@@ -342,7 +342,7 @@ class Interface
         puts 'Такого номера вагона не существует!'
       elsif wagon.train != train
         puts "Вагон номер №#{wagon.number} не прицеплен к поезду №#{train.number}."
-      else"
+      else
         train.remove_wagon(wagon)
         wagon.train = nil if !train.wagons.include?(wagon)
         puts "Вагон номер №#{wagon.number} отцеплен от поезда №#{train.number}."
