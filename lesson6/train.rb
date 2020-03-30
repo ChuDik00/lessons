@@ -17,6 +17,10 @@ class Train
     @@all_trains
   end
 
+  def self.find(number)
+    Train.all.detect { |train| train.number == number }
+  end
+
   def increase_speed(speed)
     @current_speed += speed
   end

@@ -18,19 +18,6 @@ class Interface
     @choice = gets.chomp
   end
 
-  def find_train(number)
-    Train.all.detect { |train| train.number == number }
-  end
-
-  def find_station(title)
-    Station.all.detect { |station| station.title == title }
-  end
-
-  def find_wagon(number)
-    Wagon.all.detect { |wagon| wagon.number == number }
-  end
-
-
   def main_menu
     puts 'Введите 1 для добавления станции, поезда, вагона или маршрута.'
     puts 'Введите 2 для проведения операций с созданными объектами.'
@@ -112,7 +99,7 @@ class Interface
   def add_passenger_train
     print 'Введите номер поезда: '
     choice
-    if !find_train(@choice).nil?
+    if !Train.find(@choice).nil?
       puts 'Такой номер поезда уже есть!'
     else
       TrainPassenger.new(@choice)
@@ -123,7 +110,7 @@ class Interface
   def add_cargo_train
     print 'Введите номер поезда: '
     choice
-    if !find_train(@choice).nil?
+    if !Train.find(@choice).nil?
       puts 'Такой номер поезда уже есть!'
     else
       TrainCargo.new(@choice)
@@ -158,7 +145,7 @@ class Interface
   def add_passenger_wagon
     print 'Введите номер вагона: '
     choice
-    if !find_wagon(@choice).nil?
+    if !Wagon.find(@choice).nil?
       puts 'Такой номер вагона уже есть!'
     else
       WagonPassenger.new(@choice)
@@ -169,7 +156,7 @@ class Interface
   def add_cargo_wagon
     print 'Введите номер вагона: '
     choice
-    if !find_wagon(@choice).nil?
+    if !Wagon.find(@choice).nil?
       puts 'Такой номер вагона уже есть!'
     else
       WagonCargo.new(@choice)
@@ -185,25 +172,25 @@ class Interface
       loop do
         print'Введите № поезда: '
         choice
-        train = find_train(@choice)
+        train = Train.find(@choice)
         if train.nil?
           puts 'Такого поезда нет!'
         else
           print 'Введите название первой станции маршрута: '
           choice
-          if find_station(@choice).nil?
+          if Station.find(@choice).nil?
             puts 'Такой станции нет в списке станций!'
             break
           else
-            first = find_station(@choice)
+            first = Station.find(@choice)
           end
           print 'Введите название последней станции маршрута: '
           choice
-          if find_station(@choice).nil?
+          if Station.find(@choice).nil?
             puts 'Такой станции нет в списке станций!'
             break
           else
-            last = find_station(@choice)
+            last = Station.find(@choice)
           end
           route = Route.new(first, last)
           train.route=route
@@ -281,7 +268,7 @@ class Interface
   def add_passenger_wagon_to_train
     print 'Введите номер поезда: '
     choice
-    train = find_train(@choice)
+    train = Train.find(@choice)
     if train.nil?
       puts 'Такого номера поезда нет!'
     else
@@ -290,7 +277,7 @@ class Interface
       else
         print 'Введите номер вагона: '
         choice
-        wagon = find_wagon(@choice)
+        wagon = Wagon.find(@choice)
         if wagon.nil?
           puts 'Такого номера вагона нет!'
         elsif wagon.type == :cargo
@@ -312,7 +299,7 @@ class Interface
   def add_cargo_wagon_to_train
     print 'Введите номер поезда: '
     choice
-    train = find_train(@choice)
+    train = Train.find(@choice)
     if train.nil?
       puts 'Такого номера поезда нет!'
     else
@@ -321,7 +308,7 @@ class Interface
       else
         print 'Введите номер вагона: '
         choice
-        wagon = find_wagon(@choice)
+        wagon = Wagon.find(@choice)
         if wagon.nil?
           puts 'Такого номера вагона нет!'
         elsif wagon.type == :passenger
@@ -343,13 +330,13 @@ class Interface
   def remove_wagon_from_train
     print 'Введите номер поезда: '
     choice
-    train = find_train(@choice)
+    train = Train.find(@choice)
     if train.nil?
       puts 'Такого номера поезда нет!'
     else
       print 'Введите номер вагона: '
       choice
-      wagon = find_wagon(@choice)
+      wagon = Wagon.find(@choice)
       if wagon.nil?
         puts 'Такого номера вагона не существует!'
       elsif wagon.train != train
@@ -366,7 +353,7 @@ class Interface
   def increase_speed
     print 'Введите номер поезда: '
     choice
-    train = find_train(@choice)
+    train = Train.find(@choice)
     if train.nil?
       puts 'Такого номера поезда нет!'
     else
@@ -380,7 +367,7 @@ class Interface
   def decrease_speed
     print 'Введите номер поезда: '
     choice
-    train = find_train(@choice)
+    train = Train.find(@choice)
     if train.nil?
       puts 'Такого номера поезда нет!'
     else
@@ -394,7 +381,7 @@ class Interface
   def move_forward
     print 'Введите номер поезда: '
     choice
-    train = find_train(@choice)
+    train = Train.find(@choice)
     if train.nil?
       puts 'Такого номера поезда нет!'
     else
@@ -407,7 +394,7 @@ class Interface
   def move_backward
     print 'Введите номер поезда: '
     choice
-    train = find_train(@choice)
+    train = Train.find(@choice)
     if train.nil?
       puts 'Такого номера поезда нет!'
     else
@@ -420,7 +407,7 @@ class Interface
   def insert_station_in_route
     print 'Введите номер поезда: '
     choice
-    train = find_train(@choice)
+    train = Train.find(@choice)
     if train.nil?
       puts 'Такого номера поезда нет!'
     elsif train.route.nil?
@@ -428,7 +415,7 @@ class Interface
     else
       print 'Введите название станции для добавления к маршруту: '
       choice
-      station = find_station(@choice)
+      station = Station.find(@choice)
       if station.nil?
         puts 'Такой станции нет!'
         add_station
@@ -443,7 +430,7 @@ class Interface
   def  delete_station_from_route
     print 'Введите номер поезда: '
     choice
-    train = find_train(@choice)
+    train = Train.find(@choice)
     if train.nil?
       puts 'Такого номера поезда нет!'
     elsif train.route.nil?
@@ -451,7 +438,7 @@ class Interface
     else
       print 'Введите название станции для удаления из маршрута: '
       choice
-      station = find_station(@choice)
+      station = Station.find(@choice)
       if station.nil?
         puts 'Такой станции нет!'
       elsif !train.route.stations.include?(station)
@@ -492,7 +479,7 @@ class Interface
     report_list_of_stations
     print 'Введите название станции: '
     choice
-    station = find_station(@choice)
+    station = Station.find(@choice)
     if station.nil?
       puts 'Такой станции нет в природе!'
     elsif station.trains_list.nil?

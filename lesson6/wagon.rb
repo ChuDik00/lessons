@@ -16,6 +16,10 @@ class Wagon
     @@all_wagons
   end
 
+  def self.find(number)
+    Wagon.all.detect { |wagon| wagon.number == number }
+  end
+
   def info
     puts "Тип #{@type}"
   end

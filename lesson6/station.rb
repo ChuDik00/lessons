@@ -12,6 +12,10 @@ class Station
     @@all_stations
   end
 
+  def self.find(title)
+    Station.all.detect { |station| station.title == title }
+  end
+
   def incoming_train(train)
     @trains_list << train
   end
