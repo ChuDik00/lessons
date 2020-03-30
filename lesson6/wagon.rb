@@ -1,4 +1,6 @@
+require_relative './manufacturer'
 class Wagon
+  include Manufacturer
   @@all_wagons = []
   attr_accessor :number, :train
   attr_reader :info,  :type
