@@ -68,7 +68,7 @@ class Interface
   def add_station
     print 'Введите название новой станции: '
     choice
-    Station.new(@choice)
+    station = Station.new(@choice)
     puts "Добавлена станция с названием: #{@choice}"
   end
 

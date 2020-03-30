@@ -1,4 +1,6 @@
+require_relative './instance_counter'
 class Route
+  include InstanceCounter
   @@all_routes = []
   attr_reader :stations
 
@@ -7,6 +9,7 @@ class Route
     @finish = finish
     @stations = [start, finish]
     @@all_routes << self
+    register_instance
   end
 
   def self.all
