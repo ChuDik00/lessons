@@ -4,6 +4,7 @@ class Train
   include Manufacturer
   include InstanceCounter
   @@all_trains = []
+  @instances = 0
   attr_reader :number, :type, :route, :wagons
   attr_accessor :current_speed
 
