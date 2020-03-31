@@ -8,7 +8,6 @@ require_relative 'wagon_cargo'
 require_relative 'wagon_passenger'
 
 class Interface
-
   def init
     main_menu
   end
