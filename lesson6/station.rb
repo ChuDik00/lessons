@@ -2,7 +2,6 @@ require_relative './instance_counter'
 class Station
   include InstanceCounter
   @@all_stations = []
-  @instances = 0
   attr_reader :trains_list, :title
 
   def initialize(title)
