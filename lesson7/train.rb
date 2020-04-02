@@ -91,4 +91,9 @@ class Train
     current_station
     @route.stations[@route.stations.index(@current_station)-1] if (@route.stations.index(@current_station)).positive?
   end
+
+  def validate!
+    raise "Номер поезда не должен быть пустым!" if number.empty?
+    raise "Тип поезда не должен быть пустым!" if type.empty?
+  end
 end
