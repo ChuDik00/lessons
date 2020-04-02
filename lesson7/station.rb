@@ -42,4 +42,9 @@ class Station
     @trains_list.each { |train| puts "Поезд №#{train.number}, тип: #{train.type}, к-во вагонов: #{train.wagons}"}
     trains_type.each { |type, array| puts "Поездов типа: #{type}: #{array.size} ед."}
   end
+
+  protected
+  def validate!
+    raise "Название cтанции не может быть пустым!" if @title == ""
+  end
 end
