@@ -1,8 +1,10 @@
 require_relative './manufacturer'
 require_relative './instance_counter'
+require_relative './validate'
 class Train
   include Manufacturer
   include InstanceCounter
+  include Validate
   @@all_trains = []
   attr_reader :number, :type, :route, :wagons
   attr_accessor :current_speed
@@ -10,6 +12,7 @@ class Train
   def initialize(number, type)
     @number = number
     @type = type
+    validate!
     @current_speed = 0
     @wagons = []
     @@all_trains << self
