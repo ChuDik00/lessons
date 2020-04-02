@@ -25,7 +25,7 @@ class Interface
     case choice.to_i
     when 1
       objects_menu
-    when 2
+    when 2    else
       operating_menu
     when 3
       output_menu
@@ -65,14 +65,15 @@ class Interface
   end
 
   def add_station
-    p Station.all
-    p Station.instances
     print 'Введите название новой станции: '
     choice
     Station.new(@choice)
+  rescue RuntimeError => e
+    puts e.message
   end
 
   def add_train_menu
+
     puts 'Введите 1 для добавления пассажирского поезда.'
     puts 'Введите 2 для добавления грузового поезда.'
     puts 'Введите 3 для возврата в предыдущее меню.'
@@ -90,7 +91,7 @@ class Interface
     when 0
       exit
     else
-      puts 'puts Неправильный выбор!'
+      puts 'Неправильный выбор!'
     end
     puts 'Выберите, что делать дальше:'
     add_train_menu
@@ -99,23 +100,23 @@ class Interface
   def add_passenger_train
     print 'Введите номер поезда: '
     choice
-    if !Train.find(@choice).nil?
-      puts 'Такой номер поезда уже есть!'
-    else
-      TrainPassenger.new(@choice)
-      puts "Добавлен пассажирский поезд с номером: #{@choice}"
-    end
+    raise 'Такой номер поезда уже есть!' unless Train.find(@choice).nil?
+    TrainPassenger.new(@choice)
+    puts "Добавлен пассажирский поезд с номером: #{@choice}"
+  rescue RuntimeError => e
+    puts e.message
+    retry
   end
 
   def add_cargo_train
     print 'Введите номер поезда: '
     choice
-    if !Train.find(@choice).nil?
-      puts 'Такой номер поезда уже есть!'
-    else
-      TrainCargo.new(@choice)
-      puts "Добавлен грузовой поезд с номером: #{@choice}"
-    end
+    raise 'Такой номер поезда уже есть!' unless Train.find(@choice).nil?
+    TrainCargo.new(@choice)
+    puts "Добавлен грузовой поезд с номером: #{@choice}"
+  rescue RuntimeError => e
+    puts e.message
+    retry
   end
 
   def add_wagon_menu
@@ -145,23 +146,21 @@ class Interface
   def add_passenger_wagon
     print 'Введите номер вагона: '
     choice
-    if !Wagon.find(@choice).nil?
-      puts 'Такой номер вагона уже есть!'
-    else
-      WagonPassenger.new(@choice)
-      puts "Добавлен пассажирский вагон с номером: #{@choice}"
-    end
+    raise 'Такой номер вагона уже есть!' unless Wagon.find(@choice).nil?
+    WagonPassenger.new(@choice)
+    puts "Добавлен пассажирский вагон с номером: #{@choice}"
+  rescue RuntimeError => e
+    puts e.message
   end
 
   def add_cargo_wagon
     print 'Введите номер вагона: '
     choice
-    if !Wagon.find(@choice).nil?
-      puts 'Такой номер вагона уже есть!'
-    else
-      WagonCargo.new(@choice)
-      puts "Добавлен грузовой вагон с номером: #{@choice}"
-    end
+    raise 'Такой номер вагона уже есть!' unless Wagon.find(@choice).nil?
+    WagonCargo.new(@choice)
+    puts "Добавлен грузовой вагон с номером: #{@choice}"
+  rescue RuntimeError => e
+    puts e.message
   end
 
   def add_route
@@ -175,6 +174,7 @@ class Interface
         train = Train.find(@choice)
         if train.nil?
           puts 'Такого поезда нет!'
+          objects_menu
         else
           print 'Введите название первой станции маршрута: '
           choice
