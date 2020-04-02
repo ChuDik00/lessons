@@ -1,11 +1,14 @@
 require_relative './instance_counter'
+require_relative './validate'
 class Station
   include InstanceCounter
+  include Validate
   @@all_stations = []
   attr_reader :trains_list, :title
 
   def initialize(title)
     @title = title
+    validate!
     @trains_list = []
     @@all_stations << self
     register_instance

@@ -65,10 +65,11 @@ class Interface
   end
 
   def add_station
+    p Station.all
+    p Station.instances
     print 'Введите название новой станции: '
     choice
     Station.new(@choice)
-    puts "Добавлена станция с названием: #{@choice}"
   end
 
   def add_train_menu
