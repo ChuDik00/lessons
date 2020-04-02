@@ -14,9 +14,11 @@ class Train
   def initialize(number, type)
     @number = number
     @type = type
-    validate!
     @current_speed = 0
     @wagons = []
+    validate!
+    validate_number!
+    validate_type!
     @@all_trains << self
     register_instance
   end
@@ -95,8 +97,14 @@ class Train
   end
 
   def validate!
-    raise "Номер поезда не должен быть пустым!" if number.empty?
-    raise "Тип поезда не должен быть пустым!" if type.empty?
     raise "Номер поезда не соответствует формату шаблона" if number !~ NUMBER_FORMAT
+  end
+
+  def validate_number!
+    raise "Номер поезда не должен быть пустым!" if number.empty?
+  end
+
+  def validate_type!
+    raise "Тип поезда не должен быть пустым!" if type.empty?
   end
 end

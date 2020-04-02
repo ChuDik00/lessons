@@ -10,8 +10,9 @@ class Wagon
   def initialize(number, type)
     @number = number
     @type = type
-    validate!
     @train = train
+    validate_number!
+    validate_type!
     @@all_wagons << self
   end
 
@@ -28,8 +29,11 @@ class Wagon
   end
   protected
 
-  def validate!
+  def validate_number!
     raise "Номер вагона не может быть пустым!" if number.empty?
+  end
+
+  def validate_type!
     raise "Тип вагона не может быть пустым!" if type.empty?
   end
 end

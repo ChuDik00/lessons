@@ -9,8 +9,8 @@ class Route
   def initialize(start, finish)
     @start = start
     @finish = finish
-    validate!
     @stations = [start, finish]
+    validate!
     @@all_routes << self
     register_instance
   end
@@ -29,7 +29,7 @@ class Route
 
   def to_s
     stations = @stations.map { |station| station.title }.join(", ")
-    puts "Станции на маршруте:  #{stations}"
+    puts "Список станций маршрута:  #{stations}"
   end
   protected
 
