@@ -25,7 +25,7 @@ class Interface
     case choice.to_i
     when 1
       objects_menu
-    when 2    else
+    when 2
       operating_menu
     when 3
       output_menu
