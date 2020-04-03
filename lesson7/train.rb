@@ -9,8 +9,6 @@ class Train
   attr_reader :number, :type, :route, :wagons
   attr_accessor :current_speed
 
-  NUMBER_FORMAT = /^[a-z0-9]{3}-?[a-z0-9]{2}$/i
-
   def initialize(number, type)
     @number = number
     @type = type
@@ -98,9 +96,5 @@ class Train
     validate_number!
     validate_type!
     validate_format!
-  end
-
-  def validate_format!
-    raise "Номер поезда не соответствует формату шаблона" if number !~ NUMBER_FORMAT
   end
 end

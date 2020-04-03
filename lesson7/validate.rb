@@ -1,4 +1,6 @@
 module Validate
+  NUMBER_FORMAT = /^[a-z0-9]{3}-?[a-z0-9]{2}$/i
+
   def valid?
     validate!
     true
@@ -22,4 +24,7 @@ module Validate
     raise "Обе станции не должны быть пустыми!" if start.empty? || finish.empty?
   end
 
+  def validate_format!
+    raise "Номер не соответствует формату шаблона" if number !~ NUMBER_FORMAT
+  end
 end
