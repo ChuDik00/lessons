@@ -34,6 +34,6 @@ class Route
   protected
 
   def validate!
-    raise "Обе станции не должны быть пустыми!" if start.empty? || finish.empty?
+    validate_route!
   end
 end

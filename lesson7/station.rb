@@ -45,6 +45,6 @@ class Station
   protected
 
   def validate!
-    raise "Название cтанции не может быть пустым!" if title.empty?
+    validate_title!
   end
 end
