@@ -100,7 +100,7 @@ class Train
     @route.stations[@route.stations.index(@current_station)-1] if (@route.stations.index(@current_station)).positive?
   end
 
-  protected
+  private
 
   def each_wagon
     @wagons.each { |wagon| yield(wagon) }
