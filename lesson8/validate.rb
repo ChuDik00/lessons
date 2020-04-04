@@ -21,7 +21,7 @@ module Validate
   end
 
   def validate_route!
-    raise "Обе станции не должны быть пустыми!" if start.empty? || finish.empty?
+    raise "Обе станции не должны быть пустыми!" if @start.nil? || @finish.nil?
   end
 
   def validate_format!
