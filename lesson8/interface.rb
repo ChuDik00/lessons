@@ -216,7 +216,8 @@ class Interface
     puts 'Введите 6 для перемещения на предыдущую станцию.'
     puts 'Введите 7 для добавления станции к маршруту.'
     puts 'Введите 8 для удаления станции из маршрута.'
-    puts 'Введите 9 для возвращения в главное меню.'
+    puts 'Введите 9 для занимания места или объема в вагоне.'
+    puts 'Введите 10 для возвращения в главное меню.'
     puts 'Введите 0 для завершения работы.'
     case choice.to_i
     when 1
@@ -236,6 +237,8 @@ class Interface
     when 8
       delete_station_from_route
     when 9
+      take_volume_in_wagon_menu
+    when 10
       main_menu
     when 0
       exit
@@ -244,6 +247,62 @@ class Interface
     end
     puts 'Выберите, что делать дальше:'
     operating_menu
+  end
+
+  def take_volume_in_wagon_menu
+    puts 'Введите 1 для занимания места в пассажирском вагоне.'
+    puts 'Введите 2 для занимания объема в грузовом вагоне.'
+    puts 'Введите 3 для возврата в предыдущее меню.'
+    puts 'Введите 4 для возврата в главное.'
+    puts 'Введите 0 для завершения работы.'
+    case choice.to_i
+    when 1
+      take_volume_in_passenger_wagon
+    when 2
+      take_volume_in_cargo_wagon
+    when 3
+      operating_menu
+    when 4
+      main_menu
+    when 0
+      exit
+    else
+      puts 'Неправильный выбор!'
+    end
+    puts 'Выберите, что делать дальше:'
+    take_volume_in_wagon_menu
+  end
+
+  def take_volume_in_passenger_wagon
+    print 'Введите номер поезда: '
+    choice
+    train = Train.find(@choice)
+    raise puts 'Такого номера поезда нет!' if train.nil?
+    print 'Введите номер вагона: '
+    choice
+    wagon = Wagon.find(@choice)
+    raise 'Такого номера вагона нет!' if wagon.nil?
+    raise 'Такой вагон не прицеплен к поезду' if !train.wagons.include?(wagon)
+    wagon.fill_volume
+    wagon.info
+  rescue RuntimeError => e
+    puts e.message
+  end
+
+  def take_volume_in_cargo_wagon
+    print 'Введите номер поезда: '
+    choice
+    train = Train.find(@choice)
+    raise puts 'Такого номера поезда нет!' if train.nil?
+    print 'Введите номер вагона: '
+    choice
+    wagon = Wagon.find(@choice)
+    raise 'Такого номера вагона нет!' if wagon.nil?
+    raise 'Такой вагон не прицеплен к поезду' if !train.wagons.include?(wagon)
+    wagon.fill_volume
+    wagon.info
+  rescue RuntimeError => e
+    puts e.message
   end
 
   def add_wagon_to_train_menu
@@ -458,7 +517,8 @@ class Interface
   def output_menu
     puts 'Введите 1 для вывода списка станций.'
     puts 'Введите 2 для вывода списка поездов на станции.'
-    puts 'Введите 3 для возвращения в главное меню.'
+    puts 'Введите 3 для вывода списка вагонов у поезда.'
+    puts 'Введите 4 для возвращения в главное меню.'
     puts 'Введите 0 для завершения работы.'
     case choice.to_i
     when 1
@@ -466,6 +526,8 @@ class Interface
     when 2
       report_list_of_trains_on_station
     when 3
+      report_list_wagons
+    when 4
       main_menu
     when 0
       exit
@@ -485,13 +547,22 @@ class Interface
     print 'Введите название станции: '
     choice
     station = Station.find(@choice)
-    if station.nil?
-      puts 'Такой станции нет в природе!'
-    elsif station.trains_list.nil?
-      puts "На станции #{station.title} нет поездов."
-    else
-      station.to_s
-    end
+    raise 'Такой станции нет в природе!' if station.nil?
+    raise "На станции #{station.title} нет поездов." if station.trains_list.nil?
+    station.to_s
+  rescue RuntimeError => e
+    puts e.message
+  end
+
+  def report_list_wagons
+    print 'Введите номер поезда: '
+    choice
+    train = Train.find(@choice)
+    raise 'Такого поезда не существует!' if train.nil?
+    raise "У поезда №#{train.number} нет вагонов." if train.wagons.empty?
+    train.info_wagons
+  rescue RuntimeError => e
+    puts e.message
   end
 end
 
