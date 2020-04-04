@@ -65,12 +65,20 @@ class Train
     puts "Следующая станция: #{next_station.title}" if !next_station.nil?
   end
 
+  def info_train
+    puts "Поезд №#{self.number}, тип: #{self.type}, к-во вагонов: #{self.wagons.size}"
+  end
+
+  def info_wagons
+    each_wagon { |wagon| wagon.info }
+  end
+
   def add_wagon(wagon)
-      @wagons << wagon
+    @wagons << wagon
   end
 
   def remove_wagon(wagon)
-      @wagons.delete(wagon)
+    @wagons.delete(wagon)
   end
 
   def current_station
@@ -90,6 +98,12 @@ class Train
   def prev_station
     current_station
     @route.stations[@route.stations.index(@current_station)-1] if (@route.stations.index(@current_station)).positive?
+  end
+
+  protected
+
+  def each_wagon
+    @wagons.each { |wagon| yield(wagon) }
   end
 
   def validate!
