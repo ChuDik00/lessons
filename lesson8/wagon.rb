@@ -30,7 +30,11 @@ class Wagon
   end
 
   def info
-    puts "Тип #{@type}"
+    if @type == :passenger
+      puts "Вагон № #{@number}, тип: #{@type}, свободных мест: #{free_volume}, занятых мест: #{@take_volume}"
+    elsif @type == :cargo
+      puts "Вагон № #{@number}, тип: #{@type}, свободный объем: #{free_volume}, занятый объем: #{@take_volume}"
+    end
   end
 
   protected
