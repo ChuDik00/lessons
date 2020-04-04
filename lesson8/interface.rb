@@ -13,6 +13,7 @@ class Interface
   end
 
   private
+
   def choice
     @choice = gets.chomp
   end
@@ -147,7 +148,9 @@ class Interface
     print 'Введите номер вагона: '
     choice
     raise 'Такой номер вагона уже есть!' unless Wagon.find(@choice).nil?
-    WagonPassenger.new(@choice)
+    print 'Введите общее количество мест в вагоне: '
+    seats = gets.chomp.to_i
+    WagonPassenger.new(@choice, seats)
     puts "Добавлен пассажирский вагон с номером: #{@choice}"
   rescue RuntimeError => e
     puts e.message
@@ -157,7 +160,9 @@ class Interface
     print 'Введите номер вагона: '
     choice
     raise 'Такой номер вагона уже есть!' unless Wagon.find(@choice).nil?
-    WagonCargo.new(@choice)
+    print 'Введите общий объем вагона: '
+    volume = gets.chomp.to_i
+    WagonCargo.new(@choice, volume)
     puts "Добавлен грузовой вагон с номером: #{@choice}"
   rescue RuntimeError => e
     puts e.message
