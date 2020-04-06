@@ -154,7 +154,7 @@ class Interface
 
     print 'Введите общее количество мест в вагоне: '
     seats = gets.chomp.to_i
-    WagonPassenger.new(@choice, seats)
+    WagonPassenger.new(@choice, volume: seats)
     puts "Добавлен пассажирский вагон с номером: #{@choice}"
   rescue RuntimeError => e
     puts e.message
@@ -167,7 +167,7 @@ class Interface
 
     print 'Введите общий объем вагона: '
     volume = gets.chomp.to_i
-    WagonCargo.new(@choice, volume)
+    WagonCargo.new(@choice, volume: volume)
     puts "Добавлен грузовой вагон с номером: #{@choice}"
   rescue RuntimeError => e
     puts e.message
@@ -293,7 +293,7 @@ class Interface
 
     wagon.fill_volume
     wagon.info
-  rescue RuntimeError => e
+  rescue StandardError => e
     puts e.message
   end
 
@@ -301,17 +301,22 @@ class Interface
     print 'Введите номер поезда: '
     choice
     train = Train.find(@choice)
-    raise puts 'Такого номера поезда нет!' if train.nil?
+    raise StandardError, 'Такого номера поезда нет!' if train.nil?
 
     print 'Введите номер вагона: '
     choice
     wagon = Wagon.find(@choice)
     raise 'Такого номера вагона нет!' if wagon.nil?
+
     raise 'Вагон не прицеплен к поезду' unless train.wagons.include?(wagon)
 
-    wagon.fill_volume
+    print 'Введите количество занимаемого объема вагона: '
+    volume = gets.chomp.to_i
+    raise 'Объем должен быть больше 0' if volume <= 0
+
+    wagon.fill_volume(volume)
     wagon.info
-  rescue RuntimeError => e
+  rescue StandardError => e
     puts e.message
   end
 

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class WagonPassenger < Wagon
-  def initialize(number, type = :passenger, volume)
-    @type = type
+  def initialize(number, options = {})
+    @type = options[:type] || :passenger
     super
   end
 

@@ -9,10 +9,9 @@ class Wagon
   attr_accessor :number, :train
   attr_reader :type, :volume, :take_volume
 
-  def initialize(number, type, volume)
+  def initialize(number, options = {})
     @number = number
-    @type = type
-    @volume = volume
+    @volume = options[:volume]
     @take_volume = 0
     @train = train
     validate!
@@ -51,5 +50,6 @@ class Wagon
   def validate!
     validate_number!
     validate_type!
+    validate_volume!
   end
 end

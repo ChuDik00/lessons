@@ -15,7 +15,7 @@ module Validate
   end
 
   def validate_type!
-    raise 'Тип не должен быть пустым!' if type.empty?
+    raise 'Тип не должен быть пустым!' if @type.empty?
   end
 
   def validate_title!
@@ -28,5 +28,9 @@ module Validate
 
   def validate_format!
     raise 'Номер не соответствует формату шаблона' if number !~ NUMBER_FORMAT
+  end
+
+  def validate_volume!
+    raise 'Объем не может быть пустым' if @volume.zero?
   end
 end
