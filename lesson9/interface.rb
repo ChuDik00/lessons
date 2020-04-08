@@ -20,20 +20,22 @@ class Interface
     @choice = gets.chomp
   end
 
+  def list_main_menu
+    puts <<~EOS
+    Введите 1 для добавления станции, поезда, вагона или маршрута.
+    Введите 2 для проведения операций с созданными объектами.
+    Введите 3 для выведения текущих данных об объектах.
+    Введите 0 для завершения работы.
+    EOS
+  end
+
   def main_menu
-    puts 'Введите 1 для добавления станции, поезда, вагона или маршрута.'
-    puts 'Введите 2 для проведения операций с созданными объектами.'
-    puts 'Введите 3 для выведения текущих данных об объектах.'
-    puts 'Введите 0 для завершения работы.'
+    list_main_menu
     case choice.to_i
-    when 1
-      objects_menu
-    when 2
-      operating_menu
-    when 3
-      output_menu
-    when 0
-      exit
+    when 1 then objects_menu
+    when 2 then operating_menu
+    when 3 then output_menu
+    when 0 then exit
     else
       puts 'Неправильный выбор!'
       main_menu
@@ -48,20 +50,13 @@ class Interface
     puts 'Введите 5 для возвращения в главное меню.'
     puts 'Введите 0 для завершения работы.'
     case choice.to_i
-    when 1
-      add_station
-    when 2
-      add_train_menu
-    when 3
-      add_wagon_menu
-    when 4
-      add_route
-    when 5
-      main_menu
-    when 0
-      exit
-    else
-      puts 'Неправильный выбор!'
+    when 1 then add_station
+    when 2 then add_train_menu
+    when 3 then add_wagon_menu
+    when 4 then add_route
+    when 5 then main_menu
+    when 0 then exit
+    else puts 'Неправильный выбор!'
     end
     puts 'Выберите, что делать дальше:'
     objects_menu
@@ -82,18 +77,12 @@ class Interface
     puts 'Введите 4 для возврата в главное.'
     puts 'Введите 0 для завершения работы.'
     case choice.to_i
-    when 1
-      add_passenger_train
-    when 2
-      add_cargo_train
-    when 3
-      objects_menu
-    when 4
-      main_menu
-    when 0
-      exit
-    else
-      puts 'Неправильный выбор!'
+    when 1 then add_passenger_train
+    when 2 then add_cargo_train
+    when 3 then objects_menu
+    when 4 then main_menu
+    when 0 then exit
+    else puts 'Неправильный выбор!'
     end
     puts 'Выберите, что делать дальше:'
     add_train_menu
@@ -130,18 +119,12 @@ class Interface
     puts 'Введите 4 для возврата в главное.'
     puts 'Введите 0 для завершения работы.'
     case choice.to_i
-    when 1
-      add_passenger_wagon
-    when 2
-      add_cargo_wagon
-    when 3
-      objects_menu
-    when 4
-      main_menu
-    when 0
-      exit
-    else
-      puts 'Неправильный выбор!'
+    when 1 then add_passenger_wagon
+    when 2 then add_cargo_wagon
+    when 3 then objects_menu
+    when 4 then main_menu
+    when 0 then exit
+    else puts 'Неправильный выбор!'
     end
     puts 'Выберите, что делать дальше:'
     add_wagon_menu
@@ -226,30 +209,18 @@ class Interface
     puts 'Введите 10 для возвращения в главное меню.'
     puts 'Введите 0 для завершения работы.'
     case choice.to_i
-    when 1
-      add_wagon_to_train_menu
-    when 2
-      remove_wagon_from_train
-    when 3
-      increase_speed
-    when 4
-      decrease_speed
-    when 5
-      move_forward
-    when 6
-      move_backward
-    when 7
-      insert_station_in_route
-    when 8
-      delete_station_from_route
-    when 9
-      take_volume_in_wagon_menu
-    when 10
-      main_menu
-    when 0
-      exit
-    else
-      puts 'Неправильный выбор!'
+    when 1 then add_wagon_to_train_menu
+    when 2 then remove_wagon_from_train
+    when 3 then increase_speed
+    when 4 then decrease_speed
+    when 5 then move_forward
+    when 6 then move_backward
+    when 7 then insert_station_in_route
+    when 8 then delete_station_from_route
+    when 9 then take_volume_in_wagon_menu
+    when 10 then main_menu
+    when 0 then exit
+    else puts 'Неправильный выбор!'
     end
     puts 'Выберите, что делать дальше:'
     operating_menu
@@ -262,18 +233,12 @@ class Interface
     puts 'Введите 4 для возврата в главное.'
     puts 'Введите 0 для завершения работы.'
     case choice.to_i
-    when 1
-      take_volume_in_passenger_wagon
-    when 2
-      take_volume_in_cargo_wagon
-    when 3
-      operating_menu
-    when 4
-      main_menu
-    when 0
-      exit
-    else
-      puts 'Неправильный выбор!'
+    when 1 then take_volume_in_passenger_wagon
+    when 2 then take_volume_in_cargo_wagon
+    when 3 then operating_menu
+    when 4 then main_menu
+    when 0 then exit
+    else puts 'Неправильный выбор!'
     end
     puts 'Выберите, что делать дальше:'
     take_volume_in_wagon_menu
@@ -327,18 +292,12 @@ class Interface
     puts 'Введите 4 для возврата в главное.'
     puts 'Введите 0 для завершения работы.'
     case choice.to_i
-    when 1
-      add_passenger_wagon_to_train
-    when 2
-      add_cargo_wagon_to_train
-    when 3
-      operating_menu
-    when 4
-      main_menu
-    when 0
-      exit
-    else
-      puts 'Неправильный выбор!'
+    when 1 then add_passenger_wagon_to_train
+    when 2 then add_cargo_wagon_to_train
+    when 3 then operating_menu
+    when 4 then main_menu
+    when 0 then exit
+    else puts 'Неправильный выбор!'
     end
     puts 'Выберите, что делать дальше:'
     add_wagon_to_train_menu
@@ -542,18 +501,12 @@ class Interface
     puts 'Введите 4 для возвращения в главное меню.'
     puts 'Введите 0 для завершения работы.'
     case choice.to_i
-    when 1
-      report_list_of_stations
-    when 2
-      report_list_of_trains_on_station
-    when 3
-      report_list_wagons
-    when 4
-      main_menu
-    when 0
-      exit
-    else
-      puts 'Неправильный выбор!'
+    when 1 then report_list_of_stations
+    when 2 then report_list_of_trains_on_station
+    when 3 then report_list_wagons
+    when 4 then main_menu
+    when 0 then exit
+    else puts 'Неправильный выбор!'
     end
     puts 'Выберите, что делать дальше:'
     output_menu.join(', ')
