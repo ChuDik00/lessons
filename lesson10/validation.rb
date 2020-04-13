@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Validation
   def self.included(base)
     base.extend ClassMethods
@@ -19,14 +21,14 @@ module Validation
         name = validation[:name]
         val = instance_variable_get("@#{name}".to_sym)
         arg = validation[:args][0]
-        send "#{validation[:type]}".to_sym, name, val, arg
+        send validation[:type].to_sym, name, val, arg
       end
     end
 
     def valid?
       validate!
       true
-    rescue
+    rescue StandardError
       false
     end
 
@@ -36,11 +38,11 @@ module Validation
       raise "#{name} could not be empty." if val.nil? || val == ''
     end
 
-    def format(name, val, format)
+    def format(_name, val, format)
       raise 'Wrong format!' if val !~ format
     end
 
-    def type(name, val, type)
+    def type(_name, val, type)
       raise 'Class mismatch!' if val.class != type
     end
   end

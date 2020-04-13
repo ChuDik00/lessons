@@ -46,5 +46,4 @@ class Wagon
   protected
 
   attr_writer :take_volume
-
 end
