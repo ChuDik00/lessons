@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class WagonPassenger < Wagon
+  validate :number, :presence
+
   def initialize(number, options = {})
     @type = options[:type] || :passenger
     super

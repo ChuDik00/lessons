@@ -9,14 +9,9 @@ class Train
   include Validation
   @@all_trains = []
   NUMBER_FORMAT = /^[a-z0-9]{3}-?[a-z0-9]{2}$/i.freeze
-  TYPE_FORMAT = /\w+/.freeze
 
   attr_reader :number, :type, :route, :wagons
   attr_accessor :current_speed
-
-  validate :type, :presence
-  validate :number, :format, NUMBER_FORMAT
-  validate :type, :format, TYPE_FORMAT
 
   def initialize(number, type)
     @number = number
@@ -119,9 +114,9 @@ class Train
     @wagons.each { |wagon| yield(wagon) }
   end
 
-  def validate!
-    validate_number!
-    validate_type!
-    validate_format!
-  end
+  # def validate!
+  #   validate_number!
+  #   validate_type!
+  #   validate_format!
+  # end
 end

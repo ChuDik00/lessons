@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require_relative './manufacturer'
-require_relative './validate'
+require_relative './validation'
 class Wagon
   include Manufacturer
-  include Validate
+  include Validation
   @@all_wagons = []
   attr_accessor :number, :train
   attr_reader :type, :volume, :take_volume
@@ -47,9 +47,4 @@ class Wagon
 
   attr_writer :take_volume
 
-  def validate!
-    validate_number!
-    validate_type!
-    validate_volume!
-  end
 end

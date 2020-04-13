@@ -33,7 +33,7 @@ module Validation
     protected
 
     def presence(name, val, _args)
-      raise "#{name} is not present" if val.nil? || val == ''
+      raise "#{name} could not be empty." if val.nil? || val == ''
     end
 
     def format(name, val, format)

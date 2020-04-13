@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require_relative './instance_counter'
-require_relative './validate'
+require_relative './validation'
 class Route
   include InstanceCounter
-  include Validate
+  include Validation
   @@all_routes = []
   attr_reader :stations
 
@@ -32,11 +32,5 @@ class Route
   def to_s
     stations = @stations.map(&:title).join(', ')
     puts "Список станций маршрута:  #{stations}"
-  end
-
-  protected
-
-  def validate!
-    validate_route!
   end
 end

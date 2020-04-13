@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 require_relative './instance_counter'
-require_relative './validate'
+require_relative './validation'
 class Station
   include InstanceCounter
-  include Validate
+  include Validation
   @@all_stations = []
+
+  validate :title, :presence
   attr_reader :trains_list, :title
 
   def initialize(title)
@@ -51,9 +53,5 @@ class Station
     trains_type.each do |type, _array|
       trains_type[type] = @trains_list.select { |train| train.type == type }
     end
-  end
-
-  def validate!
-    validate_title!
   end
 end
