@@ -2,6 +2,7 @@
 
 class WagonPassenger < Wagon
   validate :number, :presence
+  validate :volume, :zero
 
   def initialize(number, options = {})
     @type = options[:type] || :passenger
