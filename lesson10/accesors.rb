@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Accessors
   def attr_accesor_with_history(*attrs)
     attrs.each do |attr|
@@ -5,11 +7,11 @@ module Accessors
       define_method(attr) { instance_variable_get(attr_name) }
       define_method("#{attr}=".to_sym) do |val|
         instance_variable_set(attr_name, val)
-        @history_val ||= {}
-        @history_val[attr] ||= []
-        @history_val[attr] << val
+        @history ||= {}
+        @history[attr] ||= []
+        @history[attr] << val
       end
-      define_method("#{attr}_history") { @history_val ? @history_val[attr] : [] }
+      define_method("#{attr}_history") { @history ? @history[attr] : [] }
     end
   end
 
@@ -18,6 +20,7 @@ module Accessors
     define_method(attr) { instance_variable_get(attr_name) }
     define_method("#{attr}=".to_sym) do |val|
       raise 'Type mismatch!' unless val.is_a?(attr_class)
+
       instance_variable_set(attr_name, val)
     end
   end
