@@ -2,14 +2,21 @@
 
 require_relative './manufacturer'
 require_relative './instance_counter'
-require_relative './validate'
+require_relative './validation'
 class Train
   include Manufacturer
   include InstanceCounter
-  include Validate
+  include Validation
   @@all_trains = []
+  NUMBER_FORMAT = /^[a-z0-9]{3}-?[a-z0-9]{2}$/i.freeze
+  TYPE_FORMAT = /\w+/.freeze
+
   attr_reader :number, :type, :route, :wagons
   attr_accessor :current_speed
+
+  validate :type, :presence
+  validate :number, :format, NUMBER_FORMAT
+  validate :type, :format, TYPE_FORMAT
 
   def initialize(number, type)
     @number = number
