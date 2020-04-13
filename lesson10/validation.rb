@@ -4,7 +4,16 @@ module Validation
     base.send :include, InstanceMethods
   end
 
-  def validate(name, type, *args)
+  module ClassMethods
+    attr_reader :validations
+
+    def validate(name, type, *args)
+      @validations ||= []
+      @validations << { name: name, type: type, args: args }
+    end
+  end
+
+  module InstanceMethods
 
   end
 end
