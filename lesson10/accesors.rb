@@ -13,7 +13,12 @@ module Accessors
     end
   end
 
-  def strong_attr_accessor
-
+  def strong_attr_accessor(attr, attr_class)
+    attr_name = "@#{attr}".to_sym
+    define_method(attr) { instance_variable_get(attr_name) }
+    define_method("#{attr}=".to_sym) do |val|
+      raise 'Type mismatch!' unless val.is_a?(attr_class)
+      instance_variable_set(attr_name, val)
+    end
   end
 end
