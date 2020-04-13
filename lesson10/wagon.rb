@@ -18,7 +18,6 @@ class Wagon
     @@all_wagons << self
   end
 
-
   def self.all
     @@all_wagons
   end
