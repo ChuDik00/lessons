@@ -15,7 +15,12 @@ module Validation
 
   module InstanceMethods
     def validate!
-
+      self.class.instance_variable_get(:@validations).each do |validation|
+        name = validation[:name]
+        val = instance_variable_get("@#{name}".to_sym)
+        arg = validation[:args][0]
+        send "#{validation[:type]}".to_sym, name, val, arg
+      end
     end
 
     def valid?
