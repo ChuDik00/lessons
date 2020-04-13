@@ -1,5 +1,10 @@
 module Validation
-  def validate(name, type)
+  def self.included(base)
+    base.extend ClassMethods
+    base.send :include, InstanceMethods
+  end
+
+  def validate(name, type, *args)
 
   end
 end
